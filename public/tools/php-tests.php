@@ -72,9 +72,11 @@ $_SESSION['visit_count']++;
                 <strong>Visit Count:</strong> <?php echo $_SESSION['visit_count']; ?><br>
                 <strong>Session Name:</strong> <?php echo session_name(); ?><br>
             </div>
-            <a href="?reset_session=1" class="btn btn-secondary" style="margin-top: 1rem;">Reset Session</a>
+            <form method="POST" action="" style="margin-top: 1rem;">
+                <button type="submit" name="reset_session" class="btn btn-secondary">Reset Session</button>
+            </form>
             <?php
-            if (isset($_GET['reset_session'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
                 session_destroy();
                 echo '<script>setTimeout(() => window.location.href = "php-tests.php", 1000);</script>';
                 echo '<div class="alert alert-success" style="margin-top: 1rem;">Session reset! Reloading...</div>';
