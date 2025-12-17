@@ -26,7 +26,7 @@ If you have GitHub CLI installed:
 gh auth login
 
 # Approve the PR
-gh pr review 1 --approve --repo Morph1gkX2mpC/KITestServer --body "Approved! Excellent work on the web testing server. All tests passed and code quality is great."
+gh pr review 1 --approve --repo Morph1gkX2mpC/KITestServer --body "Approved! Excellent work on the web testing server. Code quality and structure are great."
 ```
 
 ### ✅ Option 3: Merge Directly (If You Own the Repo)

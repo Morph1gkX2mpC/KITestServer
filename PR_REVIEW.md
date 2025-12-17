@@ -172,7 +172,7 @@ Since you mentioned you couldn't approve through the GUI, here are alternative a
 
 ### Option 1: Using GitHub CLI
 ```bash
-gh pr review 1 --approve --body "LGTM! Great work on the web testing server."
+gh pr review 1 --approve --repo Morph1gkX2mpC/KITestServer --body "LGTM! Great work on the web testing server."
 ```
 
 ### Option 2: Using Git Command Line

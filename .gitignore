@@ -108,7 +108,6 @@ sessions/*
 $RECYCLE.BIN/
 
 # Linux
-*~
 .fuse_hidden*
 .directory
 .Trash-*
