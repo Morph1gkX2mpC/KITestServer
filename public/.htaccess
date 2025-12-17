@@ -4,8 +4,8 @@
 # Enable URL rewriting (if needed)
 RewriteEngine On
 
-# Prevent directory browsing (optional - comment out if you want directory listing)
-# Options -Indexes
+# Prevent directory browsing (enabled by default for security)
+Options -Indexes
 
 # Default files to serve
 DirectoryIndex index.html index.php

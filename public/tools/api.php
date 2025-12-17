@@ -2,6 +2,14 @@
 /**
  * Simple API for AJAX testing
  * This file handles various AJAX requests for testing purposes
+ * 
+ * IMPORTANT: This is a TESTING/DEVELOPMENT API
+ * For production use, implement:
+ * - Input validation and sanitization
+ * - Rate limiting
+ * - Authentication/Authorization
+ * - Comprehensive error handling
+ * - Logging and monitoring
  */
 
 header('Content-Type: application/json');
@@ -82,11 +90,15 @@ function handleGet() {
 }
 
 function handlePost() {
+    // Note: For production, implement input validation, sanitization, and rate limiting
     $data = json_decode(file_get_contents('php://input'), true);
     
     if (!$data) {
         $data = $_POST;
     }
+    
+    // For production: Add validation here
+    // Example: if (!validateInput($data)) { sendResponse(400, 'Invalid input'); }
     
     sendResponse(200, 'POST request received', [
         'received_data' => $data,
