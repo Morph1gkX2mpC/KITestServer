@@ -235,11 +235,18 @@ sudo chmod -R 775 /var/www/html/KITestServer/public/uploads
 ## 🔒 Security Notes
 
 - This is a **testing server** - do not use in production without proper security measures
+- **CSRF Protection**: Implemented for session management operations
+- **CORS**: API endpoint has origin validation (update allowed origins for production)
 - Disable directory listing in production
 - Use HTTPS for production environments
 - Implement proper input validation and sanitization
 - Set up firewall rules appropriately
 - Keep PHP and server software updated
+- For production use:
+  - Update CORS allowed origins in `tools/api.php`
+  - Review and enhance all security measures
+  - Enable error logging and monitoring
+  - Use environment variables for sensitive configuration
 
 ## 🛠️ Customization
 

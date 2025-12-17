@@ -6,6 +6,11 @@ if (!isset($_SESSION['visit_count'])) {
     $_SESSION['visit_count'] = 0;
 }
 $_SESSION['visit_count']++;
+
+// Generate CSRF token for session reset
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,13 +78,19 @@ $_SESSION['visit_count']++;
                 <strong>Session Name:</strong> <?php echo session_name(); ?><br>
             </div>
             <form method="POST" action="" style="margin-top: 1rem;">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <button type="submit" name="reset_session" class="btn btn-secondary">Reset Session</button>
             </form>
             <?php
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
-                session_destroy();
-                echo '<script>setTimeout(() => window.location.href = "php-tests.php", 1000);</script>';
-                echo '<div class="alert alert-success" style="margin-top: 1rem;">Session reset! Reloading...</div>';
+                // CSRF protection
+                if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                    echo '<div class="alert alert-error" style="margin-top: 1rem;">Invalid CSRF token!</div>';
+                } else {
+                    session_destroy();
+                    echo '<script>setTimeout(() => window.location.href = "php-tests.php", 1000);</script>';
+                    echo '<div class="alert alert-success" style="margin-top: 1rem;">Session reset! Reloading...</div>';
+                }
             }
             ?>
         </section>

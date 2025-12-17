@@ -6,9 +6,23 @@
 
 header('Content-Type: application/json');
 
-// CORS - For testing purposes only. In production, restrict to specific domains.
-// Example: header('Access-Control-Allow-Origin: https://yourdomain.com');
-$allowedOrigins = ['http://localhost:8000', 'http://127.0.0.1:8000'];
+// CORS Configuration
+// For testing/development: Allow localhost and common local addresses
+// For production: Update $allowedOrigins to include your actual domain(s)
+// Example: $allowedOrigins = ['https://yourdomain.com', 'https://www.yourdomain.com'];
+$allowedOrigins = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://localhost',
+    'http://127.0.0.1'
+];
+
+// Add server name if available
+if (isset($_SERVER['HTTP_HOST'])) {
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+    $allowedOrigins[] = $protocol . '://' . $_SERVER['HTTP_HOST'];
+}
+
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 if (in_array($origin, $allowedOrigins)) {
     header("Access-Control-Allow-Origin: $origin");
