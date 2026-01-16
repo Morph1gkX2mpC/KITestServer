@@ -1,0 +1,50 @@
+# Apache Virtual Host Configuration Example
+# Copy this to /etc/apache2/sites-available/testserver.conf
+
+<VirtualHost *:80>
+    ServerName testserver.local
+    ServerAlias www.testserver.local
+    DocumentRoot /var/www/html/KITestServer/public
+    
+    <Directory /var/www/html/KITestServer/public>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+    
+    # Enable PHP processing
+    <FilesMatch \.php$>
+        SetHandler application/x-httpd-php
+    </FilesMatch>
+    
+    # Security headers
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Logging
+    ErrorLog ${APACHE_LOG_DIR}/testserver_error.log
+    CustomLog ${APACHE_LOG_DIR}/testserver_access.log combined
+    
+    # Optional: Enable compression
+    <IfModule mod_deflate.c>
+        AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
+    </IfModule>
+</VirtualHost>
+
+# HTTPS Configuration (optional, requires SSL certificate)
+# <VirtualHost *:443>
+#     ServerName testserver.local
+#     ServerAlias www.testserver.local
+#     DocumentRoot /var/www/html/KITestServer/public
+#     
+#     SSLEngine on
+#     SSLCertificateFile /path/to/certificate.crt
+#     SSLCertificateKeyFile /path/to/private.key
+#     
+#     <Directory /var/www/html/KITestServer/public>
+#         Options Indexes FollowSymLinks
+#         AllowOverride All
+#         Require all granted
+#     </Directory>
+# </VirtualHost>

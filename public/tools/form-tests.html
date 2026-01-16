@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Tests - Web Testing Server</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📝 Form Tests</h1>
+            <p class="tagline">Test form validation, input types, and submission handling</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="html-tests.html">HTML Tests</a></li>
+                <li><a href="css-tests.html">CSS Tests</a></li>
+                <li><a href="js-tests.html">JavaScript Tests</a></li>
+                <li><a href="php-tests.php">PHP Tests</a></li>
+                <li><a href="form-tests.html" class="active">Form Tests</a></li>
+                <li><a href="ajax-tests.html">AJAX Tests</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="test-section">
+            <h3>Basic Text Inputs</h3>
+            <form id="text-form" onsubmit="handleFormSubmit(event, 'text-form')">
+                <div class="form-group">
+                    <label for="text-input">Text Input:</label>
+                    <input type="text" id="text-input" name="text" placeholder="Enter text" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email-input">Email Input:</label>
+                    <input type="email" id="email-input" name="email" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password-input">Password Input:</label>
+                    <input type="password" id="password-input" name="password" placeholder="Password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tel-input">Telephone Input:</label>
+                    <input type="tel" id="tel-input" name="phone" placeholder="+1-234-567-8900">
+                </div>
+                
+                <div class="form-group">
+                    <label for="url-input">URL Input:</label>
+                    <input type="url" id="url-input" name="website" placeholder="https://example.com">
+                </div>
+                
+                <button type="submit" class="btn">Submit Text Form</button>
+            </form>
+            <div id="text-form-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Number and Range Inputs</h3>
+            <form id="number-form" onsubmit="handleFormSubmit(event, 'number-form')">
+                <div class="form-group">
+                    <label for="number-input">Number Input (1-100):</label>
+                    <input type="number" id="number-input" name="quantity" min="1" max="100" value="50">
+                </div>
+                
+                <div class="form-group">
+                    <label for="range-input">Range Input: <span id="range-value">50</span></label>
+                    <input type="range" id="range-input" name="volume" min="0" max="100" value="50" 
+                           oninput="document.getElementById('range-value').textContent = this.value">
+                </div>
+                
+                <button type="submit" class="btn">Submit Number Form</button>
+            </form>
+            <div id="number-form-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Date and Time Inputs</h3>
+            <form id="date-form" onsubmit="handleFormSubmit(event, 'date-form')">
+                <div class="form-group">
+                    <label for="date-input">Date Input:</label>
+                    <input type="date" id="date-input" name="date">
+                </div>
+                
+                <div class="form-group">
+                    <label for="time-input">Time Input:</label>
+                    <input type="time" id="time-input" name="time">
+                </div>
+                
+                <div class="form-group">
+                    <label for="datetime-input">DateTime-Local Input:</label>
+                    <input type="datetime-local" id="datetime-input" name="datetime">
+                </div>
+                
+                <div class="form-group">
+                    <label for="month-input">Month Input:</label>
+                    <input type="month" id="month-input" name="month">
+                </div>
+                
+                <div class="form-group">
+                    <label for="week-input">Week Input:</label>
+                    <input type="week" id="week-input" name="week">
+                </div>
+                
+                <button type="submit" class="btn">Submit Date Form</button>
+            </form>
+            <div id="date-form-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Selection Inputs</h3>
+            <form id="select-form" onsubmit="handleFormSubmit(event, 'select-form')">
+                <div class="form-group">
+                    <label for="select-input">Select Dropdown:</label>
+                    <select id="select-input" name="country">
+                        <option value="">Choose a country</option>
+                        <option value="us">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="ca">Canada</option>
+                        <option value="de">Germany</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Radio Buttons:</label>
+                    <div>
+                        <label><input type="radio" name="gender" value="male"> Male</label>
+                        <label><input type="radio" name="gender" value="female"> Female</label>
+                        <label><input type="radio" name="gender" value="other"> Other</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Checkboxes:</label>
+                    <div>
+                        <label><input type="checkbox" name="interests[]" value="coding"> Coding</label>
+                        <label><input type="checkbox" name="interests[]" value="design"> Design</label>
+                        <label><input type="checkbox" name="interests[]" value="testing"> Testing</label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">Submit Selection Form</button>
+            </form>
+            <div id="select-form-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Text Area and File Upload</h3>
+            <form id="file-form" onsubmit="handleFormSubmit(event, 'file-form')">
+                <div class="form-group">
+                    <label for="textarea-input">Text Area:</label>
+                    <textarea id="textarea-input" name="message" rows="5" placeholder="Enter your message here..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="file-input">File Upload:</label>
+                    <input type="file" id="file-input" name="file" onchange="displayFileInfo(this)">
+                    <div id="file-info" style="margin-top: 0.5rem; color: #666;"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="color-input">Color Picker:</label>
+                    <input type="color" id="color-input" name="color" value="#667eea">
+                </div>
+                
+                <button type="submit" class="btn">Submit File Form</button>
+            </form>
+            <div id="file-form-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Form Validation</h3>
+            <form id="validation-form" onsubmit="handleValidationForm(event)">
+                <div class="form-group">
+                    <label for="username">Username (5-15 characters):</label>
+                    <input type="text" id="username" name="username" minlength="5" maxlength="15" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Age (18-100):</label>
+                    <input type="number" id="age" name="age" min="18" max="100" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pattern-input">Custom Pattern (ABC-123 format):</label>
+                    <input type="text" id="pattern-input" name="code" pattern="[A-Z]{3}-[0-9]{3}" 
+                           placeholder="ABC-123" title="Format: ABC-123 (3 uppercase letters, dash, 3 numbers)">
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="terms" required>
+                        I agree to the terms and conditions (required)
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn">Validate and Submit</button>
+            </form>
+            <div id="validation-form-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Search Form</h3>
+            <form id="search-form" onsubmit="handleFormSubmit(event, 'search-form')">
+                <div class="form-group">
+                    <label for="search-input">Search:</label>
+                    <input type="search" id="search-input" name="query" placeholder="Search...">
+                </div>
+                <button type="submit" class="btn">Search</button>
+            </form>
+            <div id="search-form-result" class="test-result"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Web Testing Server | Open Source Project</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        function handleFormSubmit(event, formId) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            const resultDiv = document.getElementById(formId + '-result');
+            
+            let output = '<strong>Form Data Submitted:</strong><br>';
+            
+            for (let [key, value] of formData.entries()) {
+                output += `<strong>${key}:</strong> ${value}<br>`;
+            }
+            
+            output += `<em>Submission time: ${new Date().toLocaleString()}</em>`;
+            resultDiv.innerHTML = output;
+        }
+
+        function handleValidationForm(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const resultDiv = document.getElementById('validation-form-result');
+            
+            if (form.checkValidity()) {
+                const formData = new FormData(form);
+                let output = '<div class="alert alert-success"><strong>✓ Validation Passed!</strong><br>';
+                
+                for (let [key, value] of formData.entries()) {
+                    output += `<strong>${key}:</strong> ${value}<br>`;
+                }
+                
+                output += '</div>';
+                resultDiv.innerHTML = output;
+                form.reset();
+            } else {
+                resultDiv.innerHTML = '<div class="alert alert-error"><strong>✗ Validation Failed!</strong><br>Please check the form fields.</div>';
+            }
+        }
+
+        function displayFileInfo(input) {
+            const fileInfo = document.getElementById('file-info');
+            
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                fileInfo.innerHTML = `
+                    <strong>Selected file:</strong><br>
+                    Name: ${file.name}<br>
+                    Size: ${(file.size / 1024).toFixed(2)} KB<br>
+                    Type: ${file.type || 'unknown'}
+                `;
+            } else {
+                fileInfo.innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>

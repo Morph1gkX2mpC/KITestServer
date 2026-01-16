@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Tests - Web Testing Server</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔄 AJAX Tests</h1>
+            <p class="tagline">Test asynchronous requests, fetch API, and real-time updates</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="html-tests.html">HTML Tests</a></li>
+                <li><a href="css-tests.html">CSS Tests</a></li>
+                <li><a href="js-tests.html">JavaScript Tests</a></li>
+                <li><a href="php-tests.php">PHP Tests</a></li>
+                <li><a href="form-tests.html">Form Tests</a></li>
+                <li><a href="ajax-tests.html" class="active">AJAX Tests</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="test-section">
+            <h3>Basic AJAX GET Request</h3>
+            <p>Test simple AJAX GET request to fetch data.</p>
+            <button class="btn" onclick="testBasicAjax()">Send GET Request</button>
+            <div id="ajax-basic-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>AJAX POST Request</h3>
+            <p>Test AJAX POST request with data submission.</p>
+            <div class="form-group">
+                <label for="post-name">Name:</label>
+                <input type="text" id="post-name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="post-message">Message:</label>
+                <textarea id="post-message" rows="3" placeholder="Enter your message"></textarea>
+            </div>
+            <button class="btn" onclick="testPostAjax()">Send POST Request</button>
+            <div id="ajax-post-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Fetch API (Modern Approach)</h3>
+            <p>Test modern fetch API for making requests.</p>
+            <button class="btn" onclick="testFetchAPI()">Test Fetch API</button>
+            <button class="btn btn-secondary" onclick="testFetchError()">Test Error Handling</button>
+            <div id="fetch-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>JSON Data Exchange</h3>
+            <p>Test sending and receiving JSON data.</p>
+            <button class="btn" onclick="testJSON()">Exchange JSON Data</button>
+            <div id="json-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Loading States</h3>
+            <p>Test loading indicators during AJAX requests.</p>
+            <button class="btn" onclick="testLoadingState()">Trigger Loading State</button>
+            <div id="loading-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Sequential AJAX Requests</h3>
+            <p>Test multiple AJAX requests in sequence.</p>
+            <button class="btn" onclick="testSequentialRequests()">Run Sequential Requests</button>
+            <div id="sequential-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Parallel AJAX Requests</h3>
+            <p>Test multiple AJAX requests running in parallel.</p>
+            <button class="btn" onclick="testParallelRequests()">Run Parallel Requests</button>
+            <div id="parallel-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Auto-Refresh (Polling)</h3>
+            <p>Test automatic data refresh every few seconds.</p>
+            <button class="btn" onclick="startPolling()">Start Auto-Refresh</button>
+            <button class="btn btn-secondary" onclick="stopPolling()">Stop Auto-Refresh</button>
+            <div id="polling-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Form Submission via AJAX</h3>
+            <p>Submit form data without page reload.</p>
+            <form id="ajax-form" onsubmit="handleAjaxForm(event)">
+                <div class="form-group">
+                    <label for="ajax-email">Email:</label>
+                    <input type="email" id="ajax-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="ajax-subject">Subject:</label>
+                    <input type="text" id="ajax-subject" name="subject" required>
+                </div>
+                <button type="submit" class="btn">Submit via AJAX</button>
+            </form>
+            <div id="ajax-form-result" class="test-result"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Web Testing Server | Open Source Project</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        let pollingInterval = null;
+
+        function testBasicAjax() {
+            const resultDiv = document.getElementById('ajax-basic-result');
+            resultDiv.innerHTML = '<div class="spinner"></div>';
+
+            // Simulate API call
+            setTimeout(() => {
+                const data = {
+                    status: 'success',
+                    message: 'Data fetched successfully!',
+                    timestamp: new Date().toISOString(),
+                    data: {
+                        users: 150,
+                        posts: 450,
+                        comments: 1200
+                    }
+                };
+
+                resultDiv.innerHTML = `
+                    <strong>Response:</strong><br>
+                    <pre style="background: #f8f9fa; padding: 1rem; border-radius: 5px; overflow-x: auto;">${JSON.stringify(data, null, 2)}</pre>
+                `;
+            }, 1000);
+        }
+
+        function testPostAjax() {
+            const name = document.getElementById('post-name').value;
+            const message = document.getElementById('post-message').value;
+            const resultDiv = document.getElementById('ajax-post-result');
+
+            if (!name || !message) {
+                resultDiv.innerHTML = '<div class="alert alert-error">Please fill in all fields!</div>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<div class="spinner"></div>';
+
+            // Simulate POST request
+            setTimeout(() => {
+                const response = {
+                    status: 'success',
+                    message: 'POST request completed',
+                    received: {
+                        name: name,
+                        message: message,
+                        timestamp: new Date().toISOString()
+                    }
+                };
+
+                resultDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>POST Successful!</strong><br>
+                        Name: ${response.received.name}<br>
+                        Message: ${response.received.message}<br>
+                        Time: ${new Date(response.received.timestamp).toLocaleString()}
+                    </div>
+                `;
+            }, 1000);
+        }
+
+        function testFetchAPI() {
+            const resultDiv = document.getElementById('fetch-result');
+            resultDiv.innerHTML = '<div class="spinner"></div>';
+
+            // Simulate fetch API call
+            const mockFetch = new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({
+                        ok: true,
+                        json: () => Promise.resolve({
+                            api: 'Fetch API',
+                            version: '1.0',
+                            status: 'operational',
+                            endpoints: ['GET', 'POST', 'PUT', 'DELETE']
+                        })
+                    });
+                }, 1500);
+            });
+
+            mockFetch
+                .then(response => response.json())
+                .then(data => {
+                    resultDiv.innerHTML = `
+                        <strong>Fetch API Response:</strong><br>
+                        <pre style="background: #f8f9fa; padding: 1rem; border-radius: 5px; overflow-x: auto;">${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                });
+        }
+
+        function testFetchError() {
+            const resultDiv = document.getElementById('fetch-result');
+            resultDiv.innerHTML = '<div class="spinner"></div>';
+
+            // Simulate error
+            setTimeout(() => {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-error">
+                        <strong>Error Handling Test:</strong><br>
+                        Status: 404<br>
+                        Message: Resource not found<br>
+                        This demonstrates proper error handling in AJAX requests.
+                    </div>
+                `;
+            }, 1000);
+        }
+
+        function testJSON() {
+            const resultDiv = document.getElementById('json-result');
+            resultDiv.innerHTML = '<div class="spinner"></div>';
+
+            const sendData = {
+                action: 'test',
+                parameters: {
+                    format: 'json',
+                    compression: true,
+                    timeout: 5000
+                },
+                timestamp: new Date().toISOString()
+            };
+
+            setTimeout(() => {
+                const receivedData = {
+                    ...sendData,
+                    response: 'JSON data processed successfully',
+                    server_timestamp: new Date().toISOString()
+                };
+
+                resultDiv.innerHTML = `
+                    <strong>Sent Data:</strong>
+                    <pre style="background: #f8f9fa; padding: 1rem; border-radius: 5px; overflow-x: auto; margin-bottom: 1rem;">${JSON.stringify(sendData, null, 2)}</pre>
+                    <strong>Received Data:</strong>
+                    <pre style="background: #f8f9fa; padding: 1rem; border-radius: 5px; overflow-x: auto;">${JSON.stringify(receivedData, null, 2)}</pre>
+                `;
+            }, 1000);
+        }
+
+        function testLoadingState() {
+            const resultDiv = document.getElementById('loading-result');
+            
+            resultDiv.innerHTML = '<div class="spinner"></div><p>Loading data, please wait...</p>';
+
+            setTimeout(() => {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>Loading Complete!</strong><br>
+                        Data loaded successfully after 3 seconds.<br>
+                        This demonstrates proper loading state management.
+                    </div>
+                `;
+            }, 3000);
+        }
+
+        async function testSequentialRequests() {
+            const resultDiv = document.getElementById('sequential-result');
+            resultDiv.innerHTML = '<div class="spinner"></div><p>Running sequential requests...</p>';
+
+            const results = [];
+
+            // Request 1
+            await new Promise(resolve => {
+                setTimeout(() => {
+                    results.push('Request 1: User data fetched');
+                    resolve();
+                }, 500);
+            });
+
+            // Request 2
+            await new Promise(resolve => {
+                setTimeout(() => {
+                    results.push('Request 2: Posts data fetched');
+                    resolve();
+                }, 500);
+            });
+
+            // Request 3
+            await new Promise(resolve => {
+                setTimeout(() => {
+                    results.push('Request 3: Comments data fetched');
+                    resolve();
+                }, 500);
+            });
+
+            resultDiv.innerHTML = `
+                <strong>Sequential Requests Completed:</strong><br>
+                ${results.map((r, i) => `${i + 1}. ${r}`).join('<br>')}
+                <br><br><em>Total time: ~1.5 seconds (sequential)</em>
+            `;
+        }
+
+        async function testParallelRequests() {
+            const resultDiv = document.getElementById('parallel-result');
+            resultDiv.innerHTML = '<div class="spinner"></div><p>Running parallel requests...</p>';
+
+            const requests = [
+                new Promise(resolve => setTimeout(() => resolve('Request 1: User data'), 500)),
+                new Promise(resolve => setTimeout(() => resolve('Request 2: Posts data'), 500)),
+                new Promise(resolve => setTimeout(() => resolve('Request 3: Comments data'), 500))
+            ];
+
+            const results = await Promise.all(requests);
+
+            resultDiv.innerHTML = `
+                <strong>Parallel Requests Completed:</strong><br>
+                ${results.map((r, i) => `${i + 1}. ${r}`).join('<br>')}
+                <br><br><em>Total time: ~0.5 seconds (parallel)</em>
+            `;
+        }
+
+        function startPolling() {
+            if (pollingInterval) return;
+
+            const resultDiv = document.getElementById('polling-result');
+            let count = 0;
+
+            pollingInterval = setInterval(() => {
+                count++;
+                const data = {
+                    update: count,
+                    timestamp: new Date().toLocaleTimeString(),
+                    status: 'active'
+                };
+
+                resultDiv.innerHTML = `
+                    <strong>Auto-refresh active (Update #${count}):</strong><br>
+                    Time: ${data.timestamp}<br>
+                    Status: ${data.status}<br>
+                    <em>Updates every 2 seconds...</em>
+                `;
+            }, 2000);
+
+            // Initial display
+            resultDiv.innerHTML = '<strong>Auto-refresh started...</strong>';
+        }
+
+        function stopPolling() {
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+                pollingInterval = null;
+                document.getElementById('polling-result').innerHTML = 
+                    '<div class="alert alert-info">Auto-refresh stopped.</div>';
+            }
+        }
+
+        function handleAjaxForm(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const resultDiv = document.getElementById('ajax-form-result');
+            
+            resultDiv.innerHTML = '<div class="spinner"></div>';
+
+            // Simulate AJAX form submission
+            setTimeout(() => {
+                const data = {
+                    email: formData.get('email'),
+                    subject: formData.get('subject')
+                };
+
+                resultDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>Form submitted successfully via AJAX!</strong><br>
+                        Email: ${data.email}<br>
+                        Subject: ${data.subject}<br>
+                        Time: ${new Date().toLocaleString()}<br>
+                        <em>Page was not reloaded!</em>
+                    </div>
+                `;
+
+                event.target.reset();
+            }, 1000);
+        }
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+            }
+        });
+    </script>
+</body>
+</html>

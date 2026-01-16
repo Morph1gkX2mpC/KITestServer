@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Tests - Web Testing Server</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* Test-specific CSS */
+        .flexbox-demo {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .flex-item {
+            flex: 1;
+            min-width: 150px;
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .grid-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 1rem 0;
+        }
+        .grid-item {
+            background: #764ba2;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .animation-demo {
+            width: 100px;
+            height: 100px;
+            background: #667eea;
+            border-radius: 10px;
+            animation: slide 3s infinite;
+        }
+        @keyframes slide {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(200px); }
+        }
+        .transition-demo {
+            width: 150px;
+            height: 150px;
+            background: #764ba2;
+            border-radius: 10px;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+        .transition-demo:hover {
+            transform: scale(1.2) rotate(45deg);
+            background: #667eea;
+        }
+        .gradient-demo {
+            height: 100px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+        .shadow-demo {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin: 1rem 0;
+        }
+        .responsive-text {
+            font-size: clamp(1rem, 2vw, 2rem);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎨 CSS Tests</h1>
+            <p class="tagline">Test CSS styling, animations, and responsive design</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="html-tests.html">HTML Tests</a></li>
+                <li><a href="css-tests.html" class="active">CSS Tests</a></li>
+                <li><a href="js-tests.html">JavaScript Tests</a></li>
+                <li><a href="php-tests.php">PHP Tests</a></li>
+                <li><a href="form-tests.html">Form Tests</a></li>
+                <li><a href="ajax-tests.html">AJAX Tests</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="test-section">
+            <h3>Flexbox Layout</h3>
+            <p>Testing CSS Flexbox for responsive layouts.</p>
+            <div class="flexbox-demo">
+                <div class="flex-item">Flex Item 1</div>
+                <div class="flex-item">Flex Item 2</div>
+                <div class="flex-item">Flex Item 3</div>
+                <div class="flex-item">Flex Item 4</div>
+            </div>
+        </section>
+
+        <section class="test-section">
+            <h3>Grid Layout</h3>
+            <p>Testing CSS Grid for advanced layouts.</p>
+            <div class="grid-demo">
+                <div class="grid-item">Grid 1</div>
+                <div class="grid-item">Grid 2</div>
+                <div class="grid-item">Grid 3</div>
+                <div class="grid-item">Grid 4</div>
+                <div class="grid-item">Grid 5</div>
+                <div class="grid-item">Grid 6</div>
+            </div>
+        </section>
+
+        <section class="test-section">
+            <h3>CSS Animations</h3>
+            <p>Testing CSS keyframe animations.</p>
+            <div class="animation-demo"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>CSS Transitions</h3>
+            <p>Hover over the box to see the transition effect.</p>
+            <div class="transition-demo"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Gradients</h3>
+            <p>Testing CSS gradient backgrounds.</p>
+            <div class="gradient-demo"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Box Shadows</h3>
+            <p>Testing CSS box-shadow effects.</p>
+            <div class="shadow-demo">
+                <h4>Card with Shadow</h4>
+                <p>This card demonstrates box-shadow styling.</p>
+            </div>
+        </section>
+
+        <section class="test-section">
+            <h3>Responsive Typography</h3>
+            <p class="responsive-text">This text scales responsively using clamp() function.</p>
+        </section>
+
+        <section class="test-section">
+            <h3>CSS Variables</h3>
+            <p>Testing CSS custom properties (variables).</p>
+            <div style="--custom-color: #667eea; background: var(--custom-color); color: white; padding: 20px; border-radius: 10px;">
+                This element uses CSS variables for its background color.
+            </div>
+        </section>
+
+        <section class="test-section">
+            <h3>Pseudo-elements and Pseudo-classes</h3>
+            <style>
+                .pseudo-demo::before {
+                    content: "→ ";
+                    color: #667eea;
+                    font-weight: bold;
+                }
+                .pseudo-demo::after {
+                    content: " ✓";
+                    color: #28a745;
+                }
+                .pseudo-demo:hover {
+                    color: #667eea;
+                    cursor: pointer;
+                }
+            </style>
+            <p class="pseudo-demo">Hover over this text to see pseudo-class effects</p>
+        </section>
+
+        <section class="test-section">
+            <h3>Media Queries</h3>
+            <p>Resize your browser window to test responsive design.</p>
+            <style>
+                .responsive-demo {
+                    padding: 20px;
+                    background: #667eea;
+                    color: white;
+                    border-radius: 10px;
+                }
+                @media (max-width: 768px) {
+                    .responsive-demo {
+                        background: #764ba2;
+                    }
+                    .responsive-demo::after {
+                        content: " (Mobile View)";
+                    }
+                }
+                @media (min-width: 769px) {
+                    .responsive-demo::after {
+                        content: " (Desktop View)";
+                    }
+                }
+            </style>
+            <div class="responsive-demo">
+                Current viewport size
+            </div>
+        </section>
+
+        <section class="test-section">
+            <h3>CSS Filters</h3>
+            <p>Testing CSS filter effects.</p>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="width: 100px; height: 100px; background: #667eea; border-radius: 10px; filter: blur(2px);">Blur</div>
+                <div style="width: 100px; height: 100px; background: #667eea; border-radius: 10px; filter: brightness(1.5);">Bright</div>
+                <div style="width: 100px; height: 100px; background: #667eea; border-radius: 10px; filter: grayscale(100%);">Gray</div>
+                <div style="width: 100px; height: 100px; background: #667eea; border-radius: 10px; filter: sepia(100%);">Sepia</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Web Testing Server | Open Source Project</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

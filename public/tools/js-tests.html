@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Tests - Web Testing Server</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>⚡ JavaScript Tests</h1>
+            <p class="tagline">Test DOM manipulation, events, and modern JavaScript features</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="html-tests.html">HTML Tests</a></li>
+                <li><a href="css-tests.html">CSS Tests</a></li>
+                <li><a href="js-tests.html" class="active">JavaScript Tests</a></li>
+                <li><a href="php-tests.php">PHP Tests</a></li>
+                <li><a href="form-tests.html">Form Tests</a></li>
+                <li><a href="ajax-tests.html">AJAX Tests</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="test-section">
+            <h3>DOM Manipulation</h3>
+            <p>Testing DOM element creation and manipulation.</p>
+            <button class="btn" onclick="addElement()">Add Element</button>
+            <button class="btn btn-secondary" onclick="clearElements()">Clear Elements</button>
+            <div id="dom-container" style="margin-top: 1rem;"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Event Handling</h3>
+            <p>Testing various JavaScript events.</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn" onclick="handleClick('clicked')">Click Event</button>
+                <button class="btn" ondblclick="handleClick('double-clicked')">Double Click</button>
+                <button class="btn" onmouseover="this.textContent='Hovered!'" onmouseout="this.textContent='Hover Me'">Hover Me</button>
+            </div>
+            <div id="event-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Form Events</h3>
+            <p>Testing form-related events.</p>
+            <div class="form-group">
+                <label>Input with Events:</label>
+                <input type="text" id="event-input" placeholder="Type something..." 
+                       oninput="handleInput(this.value)"
+                       onfocus="showMessage('Input focused', 'info')"
+                       onblur="showMessage('Input blurred', 'info')">
+            </div>
+            <div id="input-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Array Methods</h3>
+            <p>Testing modern JavaScript array methods.</p>
+            <button class="btn" onclick="testArrayMethods()">Run Array Tests</button>
+            <div id="array-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Promises and Async/Await</h3>
+            <p>Testing asynchronous JavaScript operations.</p>
+            <button class="btn" onclick="testPromises()">Test Promises</button>
+            <button class="btn btn-secondary" onclick="testAsyncAwait()">Test Async/Await</button>
+            <div id="async-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Local Storage</h3>
+            <p>Testing browser localStorage API.</p>
+            <div class="form-group">
+                <input type="text" id="storage-input" placeholder="Enter value to save">
+                <button class="btn" onclick="saveToStorage()">Save to Storage</button>
+                <button class="btn btn-secondary" onclick="loadFromStorage()">Load from Storage</button>
+                <button class="btn btn-secondary" onclick="clearStorage()">Clear Storage</button>
+            </div>
+            <div id="storage-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Date and Time</h3>
+            <p>Testing JavaScript Date object.</p>
+            <button class="btn" onclick="showCurrentTime()">Show Current Time</button>
+            <button class="btn btn-secondary" onclick="startTimer()">Start Timer</button>
+            <button class="btn btn-secondary" onclick="stopTimer()">Stop Timer</button>
+            <div id="time-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>String Methods</h3>
+            <p>Testing JavaScript string manipulation.</p>
+            <div class="form-group">
+                <input type="text" id="string-input" placeholder="Enter a string" value="Hello World">
+                <button class="btn" onclick="testStringMethods()">Test String Methods</button>
+            </div>
+            <div id="string-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>Math Operations</h3>
+            <p>Testing JavaScript Math object.</p>
+            <button class="btn" onclick="testMath()">Run Math Tests</button>
+            <div id="math-result" class="test-result"></div>
+        </section>
+
+        <section class="test-section">
+            <h3>ES6+ Features</h3>
+            <p>Testing modern JavaScript features.</p>
+            <button class="btn" onclick="testES6Features()">Test ES6+ Features</button>
+            <div id="es6-result" class="test-result"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Web Testing Server | Open Source Project</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        let elementCounter = 0;
+        let timerInterval = null;
+        let timerSeconds = 0;
+
+        function addElement() {
+            elementCounter++;
+            const container = document.getElementById('dom-container');
+            const newElement = document.createElement('div');
+            newElement.className = 'alert alert-success';
+            newElement.textContent = `Element #${elementCounter} created at ${new Date().toLocaleTimeString()}`;
+            container.appendChild(newElement);
+        }
+
+        function clearElements() {
+            const container = document.getElementById('dom-container');
+            container.innerHTML = '';
+            elementCounter = 0;
+        }
+
+        function handleClick(type) {
+            const result = document.getElementById('event-result');
+            result.innerHTML = `<strong>Button ${type}!</strong> Time: ${new Date().toLocaleTimeString()}`;
+        }
+
+        function handleInput(value) {
+            const result = document.getElementById('input-result');
+            result.innerHTML = `Current value: <strong>${value}</strong> (Length: ${value.length})`;
+        }
+
+        function showMessage(message, type) {
+            console.log(`${type.toUpperCase()}: ${message}`);
+        }
+
+        function testArrayMethods() {
+            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            const result = document.getElementById('array-result');
+            
+            const doubled = numbers.map(n => n * 2);
+            const evens = numbers.filter(n => n % 2 === 0);
+            const sum = numbers.reduce((acc, n) => acc + n, 0);
+            const hasLarge = numbers.some(n => n > 5);
+            const allPositive = numbers.every(n => n > 0);
+            
+            result.innerHTML = `
+                <strong>Original:</strong> [${numbers.join(', ')}]<br>
+                <strong>Doubled (map):</strong> [${doubled.join(', ')}]<br>
+                <strong>Evens (filter):</strong> [${evens.join(', ')}]<br>
+                <strong>Sum (reduce):</strong> ${sum}<br>
+                <strong>Has number > 5 (some):</strong> ${hasLarge}<br>
+                <strong>All positive (every):</strong> ${allPositive}
+            `;
+        }
+
+        function testPromises() {
+            const result = document.getElementById('async-result');
+            result.innerHTML = 'Loading...';
+            
+            const myPromise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('Promise resolved successfully!');
+                }, 2000);
+            });
+            
+            myPromise
+                .then(message => {
+                    result.innerHTML = `<strong>Success:</strong> ${message}`;
+                })
+                .catch(error => {
+                    result.innerHTML = `<strong>Error:</strong> ${error}`;
+                });
+        }
+
+        async function testAsyncAwait() {
+            const result = document.getElementById('async-result');
+            result.innerHTML = 'Loading with async/await...';
+            
+            try {
+                const data = await fetchDataSimulation();
+                result.innerHTML = `<strong>Async/Await Result:</strong> ${data}`;
+            } catch (error) {
+                result.innerHTML = `<strong>Error:</strong> ${error}`;
+            }
+        }
+
+        function fetchDataSimulation() {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve('Data fetched successfully using async/await!');
+                }, 2000);
+            });
+        }
+
+        function saveToStorage() {
+            const input = document.getElementById('storage-input');
+            const value = input.value;
+            
+            if (value) {
+                localStorage.setItem('testData', value);
+                document.getElementById('storage-result').innerHTML = 
+                    `<strong>Saved:</strong> "${value}"`;
+            }
+        }
+
+        function loadFromStorage() {
+            const value = localStorage.getItem('testData');
+            const result = document.getElementById('storage-result');
+            
+            if (value) {
+                result.innerHTML = `<strong>Loaded:</strong> "${value}"`;
+                document.getElementById('storage-input').value = value;
+            } else {
+                result.innerHTML = '<strong>No data found in storage</strong>';
+            }
+        }
+
+        function clearStorage() {
+            localStorage.removeItem('testData');
+            document.getElementById('storage-result').innerHTML = 
+                '<strong>Storage cleared</strong>';
+            document.getElementById('storage-input').value = '';
+        }
+
+        function showCurrentTime() {
+            const now = new Date();
+            const result = document.getElementById('time-result');
+            result.innerHTML = `
+                <strong>Current Date/Time:</strong><br>
+                Date: ${now.toLocaleDateString()}<br>
+                Time: ${now.toLocaleTimeString()}<br>
+                ISO: ${now.toISOString()}<br>
+                Timestamp: ${now.getTime()}
+            `;
+        }
+
+        function startTimer() {
+            if (timerInterval) return;
+            
+            timerSeconds = 0;
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                document.getElementById('time-result').innerHTML = 
+                    `<strong>Timer:</strong> ${timerSeconds} seconds`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function testStringMethods() {
+            const input = document.getElementById('string-input').value;
+            const result = document.getElementById('string-result');
+            
+            result.innerHTML = `
+                <strong>Original:</strong> "${input}"<br>
+                <strong>Uppercase:</strong> ${input.toUpperCase()}<br>
+                <strong>Lowercase:</strong> ${input.toLowerCase()}<br>
+                <strong>Length:</strong> ${input.length}<br>
+                <strong>Reversed:</strong> ${input.split('').reverse().join('')}<br>
+                <strong>First 5 chars:</strong> ${input.substring(0, 5)}<br>
+                <strong>Contains "Hello":</strong> ${input.includes('Hello')}<br>
+                <strong>Starts with "Hello":</strong> ${input.startsWith('Hello')}<br>
+                <strong>Ends with "World":</strong> ${input.endsWith('World')}
+            `;
+        }
+
+        function testMath() {
+            const result = document.getElementById('math-result');
+            const random = Math.random();
+            
+            result.innerHTML = `
+                <strong>Math Constants:</strong><br>
+                PI: ${Math.PI}<br>
+                E: ${Math.E}<br><br>
+                <strong>Math Methods:</strong><br>
+                Random: ${random.toFixed(4)}<br>
+                Random 1-100: ${Math.floor(Math.random() * 100) + 1}<br>
+                Square root of 16: ${Math.sqrt(16)}<br>
+                2 to the power of 8: ${Math.pow(2, 8)}<br>
+                Absolute of -42: ${Math.abs(-42)}<br>
+                Round 4.7: ${Math.round(4.7)}<br>
+                Ceil 4.1: ${Math.ceil(4.1)}<br>
+                Floor 4.9: ${Math.floor(4.9)}<br>
+                Max(5, 10, 3): ${Math.max(5, 10, 3)}<br>
+                Min(5, 10, 3): ${Math.min(5, 10, 3)}
+            `;
+        }
+
+        function testES6Features() {
+            const result = document.getElementById('es6-result');
+            
+            // Arrow functions
+            const square = x => x * x;
+            
+            // Template literals
+            const name = "JavaScript";
+            const greeting = `Hello, ${name}!`;
+            
+            // Destructuring
+            const person = { firstName: "John", lastName: "Doe", age: 30 };
+            const { firstName, age } = person;
+            
+            // Spread operator
+            const arr1 = [1, 2, 3];
+            const arr2 = [...arr1, 4, 5];
+            
+            // Default parameters
+            const greet = (name = "Guest") => `Welcome, ${name}!`;
+            
+            result.innerHTML = `
+                <strong>Arrow Function:</strong> square(5) = ${square(5)}<br>
+                <strong>Template Literal:</strong> ${greeting}<br>
+                <strong>Destructuring:</strong> firstName = ${firstName}, age = ${age}<br>
+                <strong>Spread Operator:</strong> [${arr2.join(', ')}]<br>
+                <strong>Default Parameters:</strong> ${greet()} | ${greet("Alice")}
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Tests - Web Testing Server</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📄 HTML Tests</h1>
+            <p class="tagline">Test HTML5 elements and semantic markup</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="html-tests.html" class="active">HTML Tests</a></li>
+                <li><a href="css-tests.html">CSS Tests</a></li>
+                <li><a href="js-tests.html">JavaScript Tests</a></li>
+                <li><a href="php-tests.php">PHP Tests</a></li>
+                <li><a href="form-tests.html">Form Tests</a></li>
+                <li><a href="ajax-tests.html">AJAX Tests</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="test-section">
+            <h3>Semantic HTML5 Elements</h3>
+            <p>Testing semantic HTML5 elements for proper structure and accessibility.</p>
+            
+            <article>
+                <h4>Article Element</h4>
+                <p>This is an article element containing independent content.</p>
+            </article>
+
+            <aside>
+                <h4>Aside Element</h4>
+                <p>This sidebar content is related to the main content.</p>
+            </aside>
+
+            <details>
+                <summary>Details Element (Click to expand)</summary>
+                <p>This is additional content that can be shown or hidden.</p>
+            </details>
+
+            <figure>
+                <figcaption>Figure Element with Caption</figcaption>
+                <p>[Placeholder for image]</p>
+            </figure>
+        </section>
+
+        <section class="test-section">
+            <h3>Text Formatting Elements</h3>
+            <p>Testing various text formatting tags:</p>
+            <ul>
+                <li><strong>Bold text</strong> using &lt;strong&gt;</li>
+                <li><em>Italic text</em> using &lt;em&gt;</li>
+                <li><mark>Highlighted text</mark> using &lt;mark&gt;</li>
+                <li><del>Deleted text</del> using &lt;del&gt;</li>
+                <li><ins>Inserted text</ins> using &lt;ins&gt;</li>
+                <li><sub>Subscript</sub> and <sup>Superscript</sup></li>
+                <li><code>Inline code</code> using &lt;code&gt;</li>
+                <li><kbd>Keyboard input</kbd> using &lt;kbd&gt;</li>
+                <li><samp>Sample output</samp> using &lt;samp&gt;</li>
+                <li><var>Variable</var> using &lt;var&gt;</li>
+            </ul>
+        </section>
+
+        <section class="test-section">
+            <h3>Lists</h3>
+            
+            <h4>Unordered List</h4>
+            <ul>
+                <li>First item</li>
+                <li>Second item</li>
+                <li>Third item</li>
+            </ul>
+
+            <h4>Ordered List</h4>
+            <ol>
+                <li>Step one</li>
+                <li>Step two</li>
+                <li>Step three</li>
+            </ol>
+
+            <h4>Description List</h4>
+            <dl>
+                <dt>HTML</dt>
+                <dd>HyperText Markup Language</dd>
+                <dt>CSS</dt>
+                <dd>Cascading Style Sheets</dd>
+                <dt>JS</dt>
+                <dd>JavaScript</dd>
+            </dl>
+        </section>
+
+        <section class="test-section">
+            <h3>Tables</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <caption>Sample Data Table</caption>
+                <thead>
+                    <tr style="background: #667eea; color: white;">
+                        <th style="padding: 10px; border: 1px solid #ddd;">ID</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Name</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">1</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Test Item 1</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Active</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">2</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Test Item 2</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Inactive</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">3</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Test Item 3</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Active</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="test-section">
+            <h3>Multimedia Elements</h3>
+            
+            <h4>Audio Element</h4>
+            <audio controls>
+                <source src="../assets/sample.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+
+            <h4>Video Element</h4>
+            <video width="320" height="240" controls>
+                <source src="../assets/sample.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <p><em>Note: Add sample media files to test these elements.</em></p>
+        </section>
+
+        <section class="test-section">
+            <h3>Embedded Content</h3>
+            
+            <h4>Iframe</h4>
+            <iframe src="../index.html" width="100%" height="200" style="border: 1px solid #ddd;"></iframe>
+
+            <h4>Progress Bar</h4>
+            <progress value="70" max="100">70%</progress>
+
+            <h4>Meter</h4>
+            <meter value="0.6" min="0" max="1">60%</meter>
+        </section>
+
+        <section class="test-section">
+            <h3>Quotations</h3>
+            
+            <blockquote cite="https://example.com">
+                <p>This is a blockquote element used for longer quotations. It's typically rendered with indentation.</p>
+            </blockquote>
+
+            <p>Inline quote: <q>This is a short inline quotation.</q></p>
+
+            <p>Citation: <cite>The HTML5 Specification</cite></p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Web Testing Server | Open Source Project</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
